@@ -4,37 +4,30 @@
  * @flow
  */
 
-import Channel from './components/channel.js';
-import Channels from './components/channels.js';
+import { Provider } from 'react-redux'
+import { createStore } from 'redux'
+
+import App from './components/app'
+
+import tvApp from './reducers'
+
+let store = createStore(tvApp)
 
 import React, { Component } from 'react';
 import {
   Navigator,
   View,
   StyleSheet,
+  AppRegistry,
 } from 'react-native';
 
 export default class Anitar extends Component {
-    renderScene(route, nav) {
-        switch(route.id){
-            case "Channels":
-                return <Channels title={"Rásir"} navigator={nav} {...route.props} />
-            case "Channel":
-                return <Channel onBack={() => { nav.pop() }} title={route.name} url={route.url} navigator={nav} {...route.props} />
-        }
-    }
-
     render() {
         return (
             <View style={styles.container}>
-                  <Navigator
-                        initialRoute={{ id: "Channels", title: 'Rásir', url: 'http://apis.is/tv/' }}
-                        renderScene={(route, navigator) =>
-                          {return this.renderScene(route, navigator)}
-                        }
-                        pushTo
-
-                  />
+                <Provider store={store}>
+                  <App />
+                </Provider>
             </View>
         );
     }
@@ -48,3 +41,5 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFCC00',
   },
 });
+
+AppRegistry.registerComponent('Root', () => Root);
