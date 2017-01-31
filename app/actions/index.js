@@ -1,57 +1,70 @@
-export const VIEW_CHANNEL = 'VIEW_CHANNEL'
-expost const VIEW_CHANNELS = 'VIEW_CHANNELS'
+export const SELECT_CHANNEL = 'VIEW_CHANNEL'
+export const REQUEST_CHANNEL = 'REQUEST_CHANNEL'
+export const RECEIVE_CHANNEL = 'RECEIVE_CHANNEL'
 
-export const VisibleScene = {
-  SHOW_CHANNEL: 'SHOW_CHANNEL',
-  SHOW_CHANNELS: 'SHOW_CHANNELS'
+export const SELECT_CHANNELS = 'VIEW_CHANNELS'
+export const REQUEST_CHANNELS = 'REQUEST_CHANNELS'
+export const RECEIVE_CHANNELS = 'RECEIVE_CHANNELS'
+
+
+export function selectChannels(url){
+    return {
+        type: SELECT_CHANNELS,
+        url
+    }
 }
 
-export const viewChannel = (url) => {
-  return {
-    type: 'VIEW_CHANNEL',
-    dataSet: new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2}).cloneWithRows(['']),
-    loading: true,
-    url
-  }
+export function selectChannel(url){
+    return {
+        type: SELECT_CHANNEL,
+        url
+    }
 }
 
-export const viewChannels = (url) => {
-  return {
-    type: 'VIEW_CHANNELS',
-    dataSet: new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2}).cloneWithRows(['']),
-    loading: true,
-    url
-  }
+function requestChannels(url) {
+    return{
+        type: REQUEST_CHANNELS,
+        url
+    }
 }
 
-// Get channel names and endpoints
-export const viewChannels = (url) => {
-        fetch('http://apis.is/tv/')
-        .then((response) => { return response.json() })
-        .then((responseData) => {
-            this.setState({dataSource: this.ds.cloneWithRows(responseData.results[0].channels), loading: false});
-            return responseData;
-        })
-        .catch((error) => {
-            console.error(error);
-        })
-        .done();
+function requestChannel(url) {
+    return{
+        type: REQUEST_CHANNEL,
+        url
+    }
 }
 
-export const viewChannelSchedule = (url) => {
-        fetch(url)
-        .then((response) => { return response.json() })
-        .then((responseData) => {
-            try{
-                this.setState({dataSource: this.ds.cloneWithRows(responseData.results), loading: false, success: true});
-            }
-            catch(error){
-                this.setState({loading: false, success: false});
-            }
-            return responseData;
-        })
-        .catch((error) => {
-            console.error(error);
-        })
-        .done();
+function receiveChannels(url, json) {
+    return {
+        type: RECEIVE_CHANNELS,
+        url,
+        data: json.channels
+    }
+}
+
+function receiveChannel(url, json) {
+    return {
+        type: RECEIVE_CHANNEL,
+        url,
+        data: json.results
+    }
+}
+
+function fetchChannels(url) {
+        return dispatch => {
+            dispatch(viewChannels(url))
+            return fetch(url)
+                .then((response) => response.json())
+                .then(json => dispatch(receiveChannels(url, json)))
+        }
+}
+
+function fetchChannel(url) {
+        return dispatch => {
+            dispatch(viewChannels('http://apis.is' + url))
+            return fetch('http://apis.is' + url)
+                .then((response) => response.json())
+                .then(json => dispatch(receiveChannel('http://apis.is' + url, json)))
+        }
 }

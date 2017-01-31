@@ -10,25 +10,10 @@ let Channels = ({ dispatch }) => (
     <View style={styles.container}>
         <View style={styles.toolbar}>
             <Text style={styles.title}>Channels</Text>
-    </View>
+        </View>
 
-    <View>
-        {!this.state.loading &&
-            <ListView style={styles.channel} dataSource={this.state.dataSource} renderRow={(rowData) =>
-                <TouchableHighlight underlayColor='#0099FF' onPress={() => this.props.navigator.push({id: "Channel", name: rowData.name, url: rowData.endpoint})}>
-                    <View>
-                        <Text style={styles.channelText}>{rowData.name}</Text>
-                    </View>
-                </TouchableHighlight>}
-            />
-        }
-        {!this.state.loading &&
-            <ActivityIndicator
-                animating={this.state.animating}
-                style={[{height: 80}]}
-                size="large"
-            />
-        }
+        <View>
+            <Text>Channels!</Text>
         </View>
     </View>
 )
