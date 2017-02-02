@@ -53,7 +53,7 @@ function receiveChannel(url, json) {
 
 function fetchChannels(url) {
         return dispatch => {
-            dispatch(viewChannels(url))
+            dispatch(receiveChannels(url))
             return fetch(url)
                 .then((response) => response.json())
                 .then(json => dispatch(receiveChannels(url, json)))
@@ -62,7 +62,7 @@ function fetchChannels(url) {
 
 function fetchChannel(url) {
         return dispatch => {
-            dispatch(viewChannels('http://apis.is' + url))
+            dispatch(receiveChannel('http://apis.is' + url))
             return fetch('http://apis.is' + url)
                 .then((response) => response.json())
                 .then(json => dispatch(receiveChannel('http://apis.is' + url, json)))

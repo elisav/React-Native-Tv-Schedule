@@ -1,4 +1,4 @@
-package com.anitar;
+package com.reactnativetvguide;
 
 import android.app.Application;
 import android.util.Log;

@@ -1,3 +1,3 @@
-rootProject.name = 'Anitar'
+rootProject.name = 'ReactNativeTvGuide'
 
 include ':app'

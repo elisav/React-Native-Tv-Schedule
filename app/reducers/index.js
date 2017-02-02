@@ -61,9 +61,9 @@ function display ( state = {}, action) {
     }
 }
 
-const rootReducer = combineReducers({
+const RootReducer = combineReducers({
     display,
     selectedChannels
 })
 
-export default rootReducer
+export default RootReducer

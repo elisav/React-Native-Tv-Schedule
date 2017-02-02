@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Component, PropTypes } from 'react'
 import {
   View,
   Text,
@@ -6,19 +6,16 @@ import {
   ListView
 } from 'react-native';
 
-let Channels = ({ dispatch }) => (
-    <View style={styles.container}>
-        <View style={styles.toolbar}>
-            <Text style={styles.title}>Channels</Text>
-        </View>
-
-        <View>
-            <Text>Channels!</Text>
-        </View>
-    </View>
-)
-
-export default Channels
+export default class Channels extends Component {
+    render() {
+        const { value, onChange, options } = this.props
+        return (
+            <View style={styles.container}>
+                <Text>Hey!</Text>
+            </View>
+        )
+    }
+}
 
 const styles = StyleSheet.create({
   toolbar: {

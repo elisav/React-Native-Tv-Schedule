@@ -4,30 +4,20 @@
  * @flow
  */
 
-import { Provider } from 'react-redux'
-import { createStore } from 'redux'
-
-import App from './components/app'
-
-import tvApp from './reducers'
-
-let store = createStore(tvApp)
+import Root from './containers/root'
 
 import React, { Component } from 'react';
 import {
-  Navigator,
   View,
   StyleSheet,
   AppRegistry,
 } from 'react-native';
 
-export default class Anitar extends Component {
+export default class ReactNativeTvGuide extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <Provider store={store}>
-                  <App />
-                </Provider>
+                  <Root />
             </View>
         );
     }
@@ -41,5 +31,3 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFCC00',
   },
 });
-
-AppRegistry.registerComponent('Root', () => Root);
